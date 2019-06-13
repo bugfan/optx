@@ -8,7 +8,7 @@ Page({
     
     
     wx.redirectTo({   //页面
-      url: '../play/play',
+      url: '../practice/practice',
     })
   },
 
@@ -20,7 +20,7 @@ Page({
   
   commonStart: function () {
     wx.redirectTo({
-      url: '../animation/animation',
+      url: '../play/play',
     })
   },
 

@@ -1,0 +1,26 @@
+<!--index.wxml-->
+<view class='container'>
+<view class="game-body">
+  <view class='question'>{{myQuesList[current].question}}</view>
+  <radio-group class="select" bindchange="radioChange">
+    <view class="clear-pull " wx:for="{{myQuesList[current].items}}">
+      <view class="pull-left item row">{{item.name}}</view>
+      <radio class="pull-left row radio" value="{{item.value}}" data-name="{{item.name}}" checked="{{item.checked}}" bindtap='tap'/>
+       
+    </view>
+  </radio-group>
+
+
+
+</view>
+
+
+<view class='game-btn'>
+
+  
+</view>
+  <view class='btn-body'>
+      <button class='btn-item' bindtap='bindNext' >下一题</button>
+  </view>
+
+</view>

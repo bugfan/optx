@@ -6,8 +6,8 @@
     "pages/index/index",
     "pages/info/info",
     "pages/detail/detail",
-    "pages/animation/animation",
-    "pages/logs/logs"
+    "pages/logs/logs",
+    "pages/practice/practice"
   ],
   "window": {
     "backgroundTextStyle": "light",
