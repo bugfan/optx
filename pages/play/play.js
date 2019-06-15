@@ -59,7 +59,7 @@ Page({
       this.setData({
         action: 'fast',
         timeHandle: setInterval(function () {
-          if (self.data.current < 4) {
+          if (self.data.current < 20) {
             self.bindNext();
           } else {
             self.bindShowGrade();
@@ -145,8 +145,15 @@ Page({
       return 0;
     }
   },
-
-
+  reStart: function () {
+    //清空本次成绩
+    wx.removeStorageSync('score');
+    //清空本次题目序列
+    app.globalData.num.length = 0;
+    wx.redirectTo({
+      url: '../begin/begin',
+    })
+  },
   //显示成绩
   bindShowGrade:function(){
     //按钮音效

@@ -41,7 +41,7 @@
   
 </view>
   <view class='btn-body'>
-    <block wx:if='{{current<4}}'>
+    <block wx:if='{{current<19}}'>
       <button class='btn-item' bindtap='bindNext' >下一题</button>
     </block>
   <block wx:else>
@@ -49,5 +49,7 @@
   </block>
 
   </view>
-
+<view class='btn-body'>
+      <button class='btn-item' bindtap='reStart' >重新开始</button>
+  </view>
 </view>

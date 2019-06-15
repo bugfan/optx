@@ -27,8 +27,9 @@ Page({
 
   //从后台获取题目
   getOpts: function () {
-    for (let i =0;i<wordList.word.length;i++){
-      app.globalData.num.push(wordList.word[i])
+    var len = wordList.word.length
+    for (let i =0;i<20;i++){
+      app.globalData.num.push(wordList.word[Math.floor(Math.random()*len)])
     }
     console.log("题目:",app.globalData.num)
   },
