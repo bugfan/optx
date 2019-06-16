@@ -8,10 +8,10 @@
 <view class='btns'>
   <view wx:for="{{numValue}}">
     <block wx:if="{{numValue[index]==1}}">
-      <button class='btn right' bindtap='select' data-num='{{index}}'>{{index+1}}</button>
+      <button class='btn right' bindtap='select' data-num='{{index}}'>{{index+1}}</button><text>\n</text>
     </block>
     <block wx:else>
-      <button class='btn wrong' bindtap='select' data-num='{{index}}'>{{index+1}}</button>
+      <button class='btn wrong' bindtap='select' data-num='{{index}}'>{{index+1}}</button><text>\n</text>
     </block>
   </view>
 </view>

@@ -59,7 +59,7 @@ Page({
       this.setData({
         action: 'fast',
         timeHandle: setInterval(function () {
-          if (self.data.current < 20) {
+          if (self.data.current < 10) {
             self.bindNext();
           } else {
             self.bindShowGrade();
