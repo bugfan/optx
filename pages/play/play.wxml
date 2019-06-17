@@ -41,7 +41,7 @@
   
 </view>
   <view class='btn-body'>
-    <block wx:if='{{current<9}}'>
+    <block wx:if='{{current< (count -1)}}'>
       <button class='btn-item' bindtap='bindNext' >下一题</button>
     </block>
   <block wx:else>

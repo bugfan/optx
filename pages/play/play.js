@@ -2,6 +2,8 @@
 //获取应用实例
 const app = getApp()
 const util=require('../../utils/util.js')  //按钮音效
+const config = require('../../utils/config.js')  //
+
 Page({
   data: {
     motto: 'Hello World',
@@ -15,7 +17,8 @@ Page({
     current: 0,//当前题目编号
     scoreList: [],
     timeHandle:null,//定时器
-    action:'normal'
+    action:'normal',
+    count:config.count,
   },
   
 
@@ -59,7 +62,7 @@ Page({
       this.setData({
         action: 'fast',
         timeHandle: setInterval(function () {
-          if (self.data.current < 10) {
+          if (self.data.current < config.count) {
             self.bindNext();
           } else {
             self.bindShowGrade();

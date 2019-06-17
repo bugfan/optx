@@ -2,6 +2,7 @@
 //获取应用实例
 const app = getApp()
 const wordList = require('../../utils/word.js')  //题库
+const config = require('../../utils/config.js')  //
 Page({
  
   practiceStart: function () {
@@ -18,7 +19,7 @@ Page({
   //   })
   // },
   
-  commonStart: function () {
+  commonStart: function () { 
     wx.redirectTo({
       url: '../play/play',
     })
@@ -27,11 +28,24 @@ Page({
 
   //从后台获取题目
   getOpts: function () {
-    var len = wordList.word.length
-    for (let i =0;i<20;i++){
-      app.globalData.num.push(wordList.word[Math.floor(Math.random()*len)])
-    }
-    console.log("题目:",app.globalData.num)
+    wx.request({
+      url: config.apiPrefix + '/api/sms?count=' + config.count+'&au=XNlcm5hbW',
+      success: (res) => {
+        if (res.data){
+          for (let i = 0; i < res.data.length; i++) {
+            app.globalData.num.push(res.data[i])
+          }
+        }
+        // console.log("data res list:", JSON.stringify(app.globalData.num))
+      }
+    })
+
+    // var len = wordList.word.length
+    // for (let i = 0; i < config.count;i++){
+    //   app.globalData.num.push(wordList.word[Math.floor(Math.random()*len)])
+    // }
+    // console.log("题目:",app.globalData.num)
+
   },
 
   onReady:function(){

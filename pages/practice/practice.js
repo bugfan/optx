@@ -3,6 +3,7 @@
 const app = getApp()
 const util = require('../../utils/util.js')  //按钮音效
 const wordList = require('../../utils/word.js')  //题库
+const config = require('../../utils/config.js')  //
 
 Page({
   data: {
@@ -15,7 +16,7 @@ Page({
     myQues: null,//我的答案
     current: 0,//当前题目编号
     timeHandle: null,//定时器
-    action: 'normal'
+    action: 'normal',
   },
 
 
@@ -53,7 +54,7 @@ Page({
       this.setData({
         action: 'fast',
         timeHandle: setInterval(function () {
-          if (self.data.current < 4) {
+          if (self.data.current < (config.count -1)) {
             self.bindNext();
           } else {
             self.bindShowGrade();
@@ -97,7 +98,7 @@ Page({
       current: this.data.current + 1,
     })
     console.log("当前编号:",this.data.current)
-    if (this.data.current > 20){
+    if (this.data.current > config.count){
       this.data.current = 0
       this.getOpts()
     }
@@ -111,14 +112,26 @@ Page({
       url: '../begin/begin',
     })
   },
+  // getOpts: function () {
+  //   var len = wordList.word.length
+  //   for (let i = 0; i < 20; i++) {
+  //     app.globalData.num.push(wordList.word[Math.floor(Math.random() * len)])
+  //   }
+  //   console.log("题目:", app.globalData.num)
+  // },
   getOpts: function () {
-    var len = wordList.word.length
-    for (let i = 0; i < 20; i++) {
-      app.globalData.num.push(wordList.word[Math.floor(Math.random() * len)])
-    }
-    console.log("题目:", app.globalData.num)
-  },
+    wx.request({
+      url: config.apiPrefix + '/api/sms?count=' + config.count + '&au=XNlcm5hbW',
+      success: (res) => {
+        if (res.data) {
+          for (let i = 0; i < res.data.length; i++) {
+            app.globalData.num.push(res.data[i])
+          }
+        }
+      }
+    })
 
+  },
   //比较方式
   compare: function (x, y) {
     if (x < y) {
