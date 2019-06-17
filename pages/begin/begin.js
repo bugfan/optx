@@ -28,6 +28,14 @@ Page({
 
   //从后台获取题目
   getOpts: function () {
+    if (config.debug) {
+      var len = wordList.word.length
+      for (let i = 0; i < config.count; i++) {
+        app.globalData.num.push(wordList.word[Math.floor(Math.random() * len)])
+      }
+      return
+    }
+    
     wx.request({
       url: config.apiPrefix + '/api/sms?count=' + config.count+'&au=XNlcm5hbW',
       success: (res) => {

@@ -112,14 +112,15 @@ Page({
       url: '../begin/begin',
     })
   },
-  // getOpts: function () {
-  //   var len = wordList.word.length
-  //   for (let i = 0; i < 20; i++) {
-  //     app.globalData.num.push(wordList.word[Math.floor(Math.random() * len)])
-  //   }
-  //   console.log("题目:", app.globalData.num)
-  // },
   getOpts: function () {
+    if (config.debug){
+      var len = wordList.word.length
+      for (let i = 0; i < config.count; i++) {
+        app.globalData.num.push(wordList.word[Math.floor(Math.random() * len)])
+      }
+      return 
+    }
+
     wx.request({
       url: config.apiPrefix + '/api/sms?count=' + config.count + '&au=XNlcm5hbW',
       success: (res) => {
