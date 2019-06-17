@@ -3,6 +3,7 @@
 .btns{
   
   margin-top: 50rpx;
+  width:80%;
   display:-webkit-flex;
  
 }

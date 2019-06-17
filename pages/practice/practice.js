@@ -98,7 +98,7 @@ Page({
       current: this.data.current + 1,
     })
     console.log("当前编号:",this.data.current)
-    if (this.data.current > config.count){
+    if (this.data.current >= (config.count-1)){
       this.data.current = 0
       this.getOpts()
     }
