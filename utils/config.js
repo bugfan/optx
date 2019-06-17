@@ -1,7 +1,7 @@
 
 
 module.exports = {
-  apiPrefix:'http://192.168.1.222:9997', 
+  apiPrefix:'http://129.28.133.197:8080', 
   count:12,
-  debug:true
+  debug:false
 }
