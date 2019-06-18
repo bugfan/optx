@@ -3,21 +3,22 @@
 .btns{
   
   margin-top: 50rpx;
-  width:80%;
+  margin-left: 20rpx;
+  /* width:100%; */
   /* display:-webkit-flex; */
  
 }
 .right{
-  background-color: #7ce9a9
+  background-color: #15f773
 }
 .wrong{
-  background-color: lightcoral
+  background-color: rgb(231, 20, 20)
 }
 .btn{
-  width:80rpx;
-  height: 80rpx;
+  width:100rpx;
+  height: 90rpx;
   border-radius: 50rpx;
-  margin-right: 25rpx;
+  margin-right: 20rpx;
 }
 .scoreList{
   margin-top:50rpx;

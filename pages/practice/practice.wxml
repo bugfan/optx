@@ -19,9 +19,9 @@
   <view class='btn-body'>
       <button class='btn-item' bindtap='bindNext' >下一题</button>
   </view>
-   <!-- <view class='btn-body'>
+   <view class='btn-body'>
       <button class='btn-item' bindtap='reStart' >重新开始</button>
-  </view> -->
+  </view>
  <text>\n</text>
     <view wx:if="{{showDetail}}" >错误</view>     
  <text>\n</text>     
