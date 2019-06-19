@@ -136,7 +136,18 @@ Page({
     }
     console.log(this.data.score)
   },
-
+  bindPre: function (){
+    var dec = this.data.current -1 
+    // console.log("ddec:",dec)
+    this.setData({
+      //移动下标
+      current: dec,
+      // myQues: app.globalData.answerList[dec]
+      })
+  },
+  toABCD(a){
+    return 'A'
+  },
 
   //比较方式
   compare: function (x, y) {

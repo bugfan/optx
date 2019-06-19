@@ -15,8 +15,8 @@
   width: 400rpx;
   margin: 10rpx auto;
   color: white; 
-  background-color: #ec4c8a; 
-  border-color: #ec4c8a;
+  background-color: #f00e0e; 
+  border-color: #f00e0e;
 }
 radio {
   transform: scale(1.5)

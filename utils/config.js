@@ -1,7 +1,7 @@
 
 
 module.exports = {
-  apiPrefix:'https://www.liyunbank.club', 
-  count:150,
+  apiPrefix:'https://www.lbelieve.cn', 
+  count:70,
   debug:false
 }

@@ -17,6 +17,7 @@ Page({
     current: 0,//当前题目编号
     timeHandle: null,//定时器
     action: 'normal',
+    choosed:false,
   },
 
 
@@ -76,6 +77,9 @@ Page({
 
   radioChange: function (e) {
     console.log('radio发生change事件，携带value值为：', e.detail.value)
+    this.setData({
+      choosed:true,
+    })
     if (e.detail.value != 1){
       this.setData({
         showDetail:true,
@@ -92,6 +96,7 @@ Page({
     util.nextAudio.play();
     this.setData({
       showDetail:false,
+      choosed:false,
     })
     this.setData({
       //移动下标

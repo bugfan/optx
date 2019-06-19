@@ -5,8 +5,8 @@
 <block wx:if="{{myQuesList[current].pic==''}}">
   <view class='userInfo'>
     <block wx:if='{{!hasUserInfo}}'>
-      <image class='game-img'src='../../img/logo.jpeg'></image>
-      <view calss='game-desc'>加油~~</view>
+      <!-- <image class='game-img'src='../../img/logo.jpeg'></image> -->
+      <!-- <view calss='game-desc'>加油~~</view> -->
     </block>
     <block wx:else>
       <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
@@ -15,7 +15,7 @@
   </view>
 </block>
 </view>
-
+<wxs module="filter" src="../../utils/abcd.wxs"></wxs>
 <view class="game-body">
   <view class='title'>第{{current+1}}题</view>
   <view class='question'>{{myQuesList[current].question}}</view>
@@ -24,8 +24,8 @@
   </block>
   
   <radio-group class="select" bindchange="radioChange">
-    <view class="clear-pull " wx:for="{{myQuesList[current].items}}">
-      <view class="pull-left item row">{{item.name}}</view>
+    <view class="clear-pull " wx:key="index" wx:for="{{myQuesList[current].items}}">
+      <view class="pull-left item row">{{filter.abcd(index)}} {{item.name}}</view>
       <radio class="pull-left row radio" value="{{item.value}}" data-name="{{item.name}}" checked="{{item.checked}}" bindtap='tap'/>
        
     </view>
@@ -43,8 +43,12 @@
   <view class='btn-body'>
     <block wx:if='{{current< (count -1)}}'>
       <button class='btn-item' bindtap='bindNext' >下一题</button>
+      <block wx:if='{{current > 0}}'>
+        <button class='btn-item' bindtap='bindPre' >上一题</button>
+      </block>
     </block>
   <block wx:else>
+      <button class='btn-item' bindtap='bindPre' >上一题</button>
     <button class='btn-item' type='warn' bindtap='bindShowGrade' >显示成绩</button>
   </block>
 

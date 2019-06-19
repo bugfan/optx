@@ -23,7 +23,8 @@
       <button class='btn-item' bindtap='reStart' >重新开始</button>
   </view>
  <text>\n</text>
-    <view wx:if="{{showDetail}}" >错误</view>     
+    <view wx:if="{{showDetail}}" class="font-color:red;">错误</view>  
+    <view wx:if="{{!showDetail && choosed}}">正确</view>     
  <text>\n</text>     
     <view wx:if="{{showDetail}}" class='detail'>{{myQuesList[current].detail}}</view>  
 </view>
