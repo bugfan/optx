@@ -12,8 +12,11 @@ radio {
 
 .question{
   margin: 20rpx 50rpx;
-  font-size: larger;
+  font-size: 38rpx;
   text-align: center;
+}
+.quex {
+  font-size: 34rpx;
 }
 .ques-img{
   width:400rpx;
@@ -69,3 +72,13 @@ radio {
   margin-top: 200rpx;
 }
 
+.btn-group{
+  display: inline-flex;
+ position: fixed;
+ bottom: 0;
+ width: 100%;
+}
+.btn-itemp {
+  width: 189rpx;
+  font-size: 30rpx;
+}

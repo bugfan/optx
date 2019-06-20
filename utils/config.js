@@ -2,6 +2,6 @@
 
 module.exports = {
   apiPrefix:'https://www.lbelieve.cn', 
-  count:70,
+  count:4,
   debug:false
 }

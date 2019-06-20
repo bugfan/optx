@@ -19,6 +19,7 @@ Page({
     timeHandle:null,//定时器
     action:'normal',
     count:config.count,
+    parse:0,
   },
   
 
@@ -88,8 +89,11 @@ Page({
       myQues:e.target.dataset.name
     })
   },
-
-
+  parsex:function(e){
+    this.setData({
+      parse:~this.parse,
+    })
+  },
   radioChange: function(e) {
       console.log('radio发生change事件，携带value值为：', e.detail.value)
       
@@ -109,41 +113,40 @@ Page({
   bindNext:function(){
     //按钮音效
     util.nextAudio.play();
-    
-    //记录题目对错
-    app.globalData.numValue.push(this.data.currentValue)
-    //记录我的答案
-    app.globalData.answerList.push(this.data.myQues)
-    this.setData({
-      //移动下标
-      current: this.data.current+1,
-
-      
-    })
-    //更改分数
-    if(this.data.currentValue==1){
-      if(this.data.action=='fast'){
-        this.setData({
-          score: this.data.score + 3,
-        })
-      }else{
-        this.setData({
-          score: this.data.score + 1,
-        })
+    if (this.data.current < (config.count-1)){
+      //记录题目对错
+      app.globalData.numValue.push(this.data.currentValue)
+      //记录我的答案
+      app.globalData.answerList.push(this.data.myQues)
+      this.setData({
+        //移动下标
+        current: this.data.current + 1,
+      })
+      //更改分数
+      if (this.data.currentValue == 1) {
+        if (this.data.action == 'fast') {
+          this.setData({
+            score: this.data.score + 3,
+          })
+        } else {
+          this.setData({
+            score: this.data.score + 1,
+          })
+        }
       }
-      
-     
+      console.log(this.data.score)
     }
-    console.log(this.data.score)
   },
   bindPre: function (){
-    var dec = this.data.current -1 
-    // console.log("ddec:",dec)
-    this.setData({
-      //移动下标
-      current: dec,
-      // myQues: app.globalData.answerList[dec]
+    if (this.data.current >0) {
+      var dec = this.data.current - 1
+      // console.log("ddec:",dec)
+      this.setData({
+        //移动下标
+        current: dec,
+        // myQues: app.globalData.answerList[dec]
       })
+    }
   },
   toABCD(a){
     return 'A'
