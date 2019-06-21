@@ -44,12 +44,10 @@ App({
     })
   },
   globalData: {
-    num: [],//待生成的题目序列
-    numValue:[],//答案对错
-    answerList:[],//答案序列
-    nowQuestion:null,//当前题目
+    list: [],//待生成的题目序列 [{}]
+    answerList:[],//答案序列 [字符串]
+    detailIndex:0,  //解析详情页面
+    currentItem:null,//当前题目 {}
     userInfo: null,
-    //每轮题目数
-    select:5
   }
 })

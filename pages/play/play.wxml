@@ -1,13 +1,11 @@
 <!--index.wxml-->
 <view class='container'>
 
-  <view class='upup'>
-    <view class='game'>
-    <block wx:if="{{myQuesList[current].pic==''}}">
+  <view>
+    <!-- <view class='game'>
+    <block wx:if="{{list[currentIndex].pic==''}}">
       <view class='userInfo'>
         <block wx:if='{{!hasUserInfo}}'>
-          <!-- <image class='game-img'src='../../img/logo.jpeg'></image> -->
-          <!-- <view calss='game-desc'>加油~~</view> -->
         </block>
         <block wx:else>
           <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
@@ -15,37 +13,37 @@
         </block>
       </view>
     </block>
-    </view>
+    </view> -->
     <wxs module="filter" src="../../utils/abcd.wxs"></wxs>
-    <view class="game-body">
-        <view class='title'>第{{current+1}}题</view>
-        <view class='question'>{{myQuesList[current].question}}</view>
-        <block wx:if="{{myQuesList[current].pic!=''}}">
-          <image class='ques-img' src='{{myQuesList[current].pic}}'></image>
+    <view>
+        <view class='title'>第{{currentIndex+1}}题</view>
+        <view class='question'>{{list[currentIndex].question}}</view>
+        <block wx:if="{{list[currentIndex].pic!=''}}">
+          <image class='ques-img' src='{{list[currentIndex].pic}}'></image>
         </block>
       
         <view class="quex">
             <radio-group class="select" bindchange="radioChange">
-              <view class="clear-pull " wx:key="index" wx:for="{{myQuesList[current].items}}">
+              <view class="clear-pull " wx:key="index" wx:for="{{list[currentIndex].items}}">
                 <view class="pull-left item row">{{filter.abcd(index)}} {{item.name}}</view>
-                <radio class="pull-left row radio" value="{{item.value}}" data-name="{{item.name}}"
+                <radio class="pull-right row radio" value="{{item.value}}" data-index="{{index}}" data-name="{{item.name}}"
                 checked="{{item.checked}}" bindtap='tap'/>
               </view>
             </radio-group>
         </view>
     </view>
   </view>
-  <view class='btn-body'><button class='btn-itemp' bindtap='parsex' >解析</button></view>  
-  <view hidden='{{parse == 1}}'>
-      <view >ddd</view>
-      <!-- {{myQuesList[current].detail}} -->
-  </view>
 </view>
+  <view><button class='btn-parse' bindtap='parsex' >解析</button></view>  
+  <view class='btn-ppp'>
+      <block wx:if='{{parse}}'>
+        <text>dddasdfasdfasdfasdf asfaewfasdfasdfasefawefasef阿瑟发发到付阿道夫</text>
+      </block>
+  </view>
 
 <!-- 按钮整体 -->
 <view class='btn-group'>
-  <view class='btn-body'><button class='btn-itemp' bindtap='bindNext' >下一题</button></view>
   <view class='btn-body'><button class='btn-itemp' bindtap='bindPre' >上一题</button></view>
-  <view class='btn-body'><button class='btn-itemp' type='warn' bindtap='bindShowGrade' >显示成绩</button></view>
-  <view class='btn-body'><button class='btn-itemp' bindtap='reStart' >重新开始</button></view>
+  <view class='btn-body'><button class='btn-itemp' bindtap='bindNext' >{{nextText}}</button></view>
+  <view class='btn-body'><button class='btn-itemp' bindtap='reStart' >返回</button></view>
 </view>

@@ -28,3 +28,9 @@
 .oneScore{
   margin-top: 10rpx;
 }
+.btn-return{
+  width: 300rpx;
+  margin: 10rpx auto;
+  color: black; 
+  background-color: #f7df0af8; 
+  }

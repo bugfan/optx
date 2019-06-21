@@ -20,7 +20,7 @@
       <button class='btn-item' bindtap='bindNext' >下一题</button>
   </view>
    <view class='btn-body'>
-      <button class='btn-item' bindtap='reStart' >重新开始</button>
+      <button class='btn-item' bindtap='reStart' >返回</button>
   </view>
  <text>\n</text>
     <view wx:if="{{showDetail}}" class="font-color:red;">错误</view>  

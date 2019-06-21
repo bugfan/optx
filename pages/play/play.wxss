@@ -1,22 +1,26 @@
 /**index.wxss**/
 
 radio {
-  transform: scale(1.5)
+  transform: scale(1)
 }
 
 .title{
-  margin-top: 30rpx;
+  margin-top: 20rpx;
   text-align: center;
-  font-size: larger;
+  font-size: 32rpx;
 }
 
 .question{
   margin: 20rpx 50rpx;
-  font-size: 38rpx;
+  font-size: 35rpx;
   text-align: center;
 }
 .quex {
   font-size: 34rpx;
+  margin-left: 10rpx;
+}
+.qbody {
+  margin-left: 10rpx;
 }
 .ques-img{
   width:400rpx;
@@ -29,10 +33,17 @@ radio {
   
 }
 .clear-pull{
-  clear: both
+  clear: float;
+  margin-left: 1rpx;
 }
 .pull-left{
-  float: left
+  float: left;
+  margin-left: 0rpx;
+  width: 200rpx;
+}
+.pull-right {
+  width: 50rpx;
+  float:  right;
 }
 .item{
   width:85%;
@@ -79,6 +90,20 @@ radio {
  width: 100%;
 }
 .btn-itemp {
-  width: 189rpx;
+  width: 250rpx;
   font-size: 30rpx;
+  float: left;
+  margin-left: 1rpx;
+}
+
+.btn-parse {
+  width: 150rpx;
+  font-size: 25rpx;
+  float:right;
+  margin-top:80rpx;
+  margin-right:10rpx;
+}
+
+.btn-ppp {
+  margin-top: 150rpx;
 }

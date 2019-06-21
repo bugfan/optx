@@ -24,8 +24,8 @@ radio {
 
 .title{
   margin-top: 30rpx;
-  text-align: center;
-  font-size: larger;
+  text-align: left;
+  font-size: 34rpx;
 }
 
 .question{

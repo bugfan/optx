@@ -1,36 +1,22 @@
 //index.js
 //获取应用实例
 const app = getApp()
-const util=require('../../utils/util.js')  //按钮音效
 const config = require('../../utils/config.js')  //
 
 Page({
   data: {
-    motto: 'Hello World',
     userInfo: {},
     hasUserInfo: false,
-    currentValue:0,
-    total:0,//做题数
-    score:0,//分数
-    myQuesList: app.globalData.num,
+    list: app.globalData.list,
     myQues:null,//我的答案
-    current: 0,//当前题目编号
-    scoreList: [],
-    timeHandle:null,//定时器
-    action:'normal',
-    count:config.count,
-    parse:0,
+    currentIndex: 0,//当前题目编号
+    parse:false,
+    nextText:'下一题'
   },
   
 
 
   onLoad: function (e) {
-    this.setData({
-      scoreList:wx.getStorageSync('allScore'),
-      
-    })
-
-    
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
@@ -57,22 +43,6 @@ Page({
         }
       })
     }
-
-    if (e.action && e.action == 'fast') {
-      let self = this;
-      this.setData({
-        action: 'fast',
-        timeHandle: setInterval(function () {
-          if (self.data.current < config.count) {
-            self.bindNext();
-          } else {
-            self.bindShowGrade();
-          }
-        }, 2000)
-      })
-    }
-
-
   },
 
   getUserInfo: function (e) {
@@ -90,140 +60,85 @@ Page({
     })
   },
   parsex:function(e){
+   var v =false
+   if (this.data.parse){
+     v =false
+   }else{
+     v =true
+   }
     this.setData({
-      parse:~this.parse,
+      parse:v,
     })
   },
   radioChange: function(e) {
-      console.log('radio发生change事件，携带value值为：', e.detail.value)
-      
-
-      var items = app.globalData.num;
-      for (var i = 0, len = items.length; i < len; ++i) {
-        items[i].checked = items[i].value == e.detail.value
-        
+    console.log('radio发生change事件，携带value值为：', e.detail,
+     this.data.currentIndex, app.globalData.list[this.data.currentIndex])
+    // var items = app.globalData.list;
+    for (var i = 0;i<app.globalData.list[this.data.currentIndex].items.length;i++) {
+      if (app.globalData.list[this.data.currentIndex].items[i].value == e.detail.value.toString() && e.detail.value==1){
+        app.globalData.list[this.data.currentIndex].items[i].checked = true
+      }else{
+        app.globalData.list[this.data.currentIndex].items[i].checked == false //判断
       }
-      //判断题目对错
-      this.setData({
-        items: items,
-        currentValue: e.detail.value
-      });
+    }
+    this.bindNext()
   },
 // 下一题
   bindNext:function(){
-    //按钮音效
-    util.nextAudio.play();
-    if (this.data.current < (config.count-1)){
-      //记录题目对错
-      app.globalData.numValue.push(this.data.currentValue)
-      //记录我的答案
-      app.globalData.answerList.push(this.data.myQues)
+    this.setData({
+      parse:false,
+    })
+    if(this.data.currentIndex == (config.count - 1)) {
+        this.bindShowGrade()
+        return
+    }
+    this.calcShowText()
+
+    if (this.data.currentIndex < (config.count-1)){
       this.setData({
         //移动下标
-        current: this.data.current + 1,
+        currentIndex: this.data.currentIndex + 1,
       })
-      //更改分数
-      if (this.data.currentValue == 1) {
-        if (this.data.action == 'fast') {
-          this.setData({
-            score: this.data.score + 3,
-          })
-        } else {
-          this.setData({
-            score: this.data.score + 1,
-          })
-        }
-      }
-      console.log(this.data.score)
+    }
+  },
+  calcShowText:function(){
+    if (this.data.currentIndex == (config.count - 2)) {
+      this.setData({
+        nextText: '显示成绩',
+      })
+    } else {
+      this.setData({
+        nextText: '下一题',
+      })
     }
   },
   bindPre: function (){
-    if (this.data.current >0) {
-      var dec = this.data.current - 1
-      // console.log("ddec:",dec)
+    if (this.data.currentIndex >0) {
+      // let ind = this.data.currentIndex - 1
+      // for (var i =0 ;i< app.globalData.list[ind].items.length;i++){
+      //     if (app.globalData.list[ind].items[i].checked){
+            
+      //     }
+      // }
       this.setData({
-        //移动下标
-        current: dec,
-        // myQues: app.globalData.answerList[dec]
+        list:app.globalData.list,
+        currentIndex: this.data.currentIndex - 1,
       })
-    }
-  },
-  toABCD(a){
-    return 'A'
-  },
-
-  //比较方式
-  compare: function (x, y) {
-    if (x < y) {
-      return 1;
-    } else if (x > y) {
-      return -1;
-    } else {
-      return 0;
+      this.calcShowText()
     }
   },
   reStart: function () {
+    app.globalData.list= []
     //清空本次成绩
     wx.removeStorageSync('score');
-    //清空本次题目序列
-    app.globalData.num.length = 0;
     wx.redirectTo({
       url: '../begin/begin',
     })
   },
   //显示成绩
   bindShowGrade:function(){
-    //按钮音效
-    util.gradeAudio.play();
-    //记录题目对错
-    app.globalData.numValue.push(this.data.currentValue)
-    //记录我的答案
-    app.globalData.answerList.push(this.data.myQues)
-    //更改分数
-    if (this.data.currentValue == 1) {
-      if (this.data.action == 'fast') {
-        this.setData({
-          score: this.data.score + 3,
-        })
-      } else{
-        this.setData({
-
-          score: this.data.score + 1,
-
-        })
-      }
-      
-    }
-    //记录分数
-    wx.setStorageSync('oneScore',this.data.score)
-
-    //将本次成绩记录到排行榜,去除重复记录
-    let flag=0
-    for (let i = 0; i < this.data.scoreList.length;i++){
-      if (this.data.score == this.data.scoreList[i]){
-        flag++;
-        break;
-      }
-    }
-    if(flag==0){
-      this.data.scoreList.push(this.data.score);
-    }
-    
-    this.data.scoreList.sort(this.compare)
-    this.setData({
-      scoreList: this.data.scoreList.slice(0, 5)
-    })
-    
-    wx.setStorageSync('allScore', this.data.scoreList)
-
-    //关闭定时器
-    clearInterval(this.data.timeHandle)
-
     wx.redirectTo({
       url: '../award/award'
     })
   },
- 
-
-
 })

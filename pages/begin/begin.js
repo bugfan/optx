@@ -20,9 +20,8 @@ Page({
   // },
   
   commonStart: function () { 
-    wx.redirectTo({
-      url: '../play/play',
-    })
+    //生成题目
+    this.getOpts();
   },
 
 
@@ -31,36 +30,28 @@ Page({
     if (config.debug) {
       var len = wordList.word.length
       for (let i = 0; i < config.count; i++) {
-        app.globalData.num.push(wordList.word[Math.floor(Math.random() * len)])
+        app.globalData.list.push(wordList.word[Math.floor(Math.random() * len)])
       }
       return
     }
-    
     wx.request({
       url: config.apiPrefix + '/api/sms?count=' + config.count+'&au=XNlcm5hbW',
       success: (res) => {
         if (res.data){
           for (let i = 0; i < res.data.length; i++) {
-            app.globalData.num.push(res.data[i])
+            app.globalData.list.push(res.data[i])
           }
+          wx.redirectTo({
+            url: '../play/play',
+          })
         }
-        // console.log("data res list:", JSON.stringify(app.globalData.num))
       }
     })
-
-    // var len = wordList.word.length
-    // for (let i = 0; i < config.count;i++){
-    //   app.globalData.num.push(wordList.word[Math.floor(Math.random()*len)])
-    // }
-    // console.log("题目:",app.globalData.num)
-
   },
 
   onReady:function(){
-    //生成题目
-    this.getOpts();
     //清除错题记录
-    app.globalData.numValue.length = 0;
+    // app.globalData.numValue.length = 0;
     
     
   }

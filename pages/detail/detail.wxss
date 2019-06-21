@@ -8,3 +8,18 @@
   padding: 50rpx 100rpx;
   box-sizing: border-box;
 }
+.qqq{
+  margin: 20rpx 50rpx;
+  font-size: 30rpx;
+  text-align: left;
+}
+
+.mtop {
+  float: clear;
+  margin-top:30rpx;
+}
+
+.showi{
+  font-size: 32rpx;
+  margin-left: 50rpx;
+}

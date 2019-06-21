@@ -1,19 +1,15 @@
 <!--index.wxml-->
 <view class="container">
-
     <text class="title">分数：{{fscore}}</text>
-
-
-
-<view class='btns'>
-  <view wx:for="{{numValue}}" style='float:left'>
-    <block wx:if="{{numValue[index]==1}}">
-      <button class='btn right' bindtap='select' data-num='{{index}}'>{{index+1}}</button><text>\n</text>
-    </block>
-    <block wx:else>
-      <button class='btn wrong' bindtap='select' data-num='{{index}}'>{{index+1}}</button><text>\n</text>
-    </block>
-  </view>
+    <view class='btns'>
+      <view wx:for="{{listCommit}}" wx:key="{{index}}" style='float:left;'>
+        <block wx:if="{{listCommit[index]==1}}">
+          <button class='btn right' bindtap='select' data-num='{{index}}'>{{index+1}}</button><text>\n</text>
+        </block>
+        <block wx:else>
+          <button class='btn wrong' bindtap='select' data-num='{{index}}'>{{index+1}}</button><text>\n</text>
+        </block>
+      </view>
 </view>
 
 <view class='scoreList'>
@@ -24,6 +20,6 @@
 </view>
 
   <view class='btn-body'>
-    <button  class='btn-item' bindtap='bindStart'>重新开始</button>
+    <button  class='btn-return' bindtap='bindStart'>返回</button>
   </view>
 </view>
