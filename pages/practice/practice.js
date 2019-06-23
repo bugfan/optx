@@ -1,23 +1,18 @@
 //index.js
 //获取应用实例
 const app = getApp()
-const util = require('../../utils/util.js')  //按钮音效
-const wordList = require('../../utils/word.js')  //题库
 const config = require('../../utils/config.js')  //
 
 Page({
   data: {
-    motto: 'Hello World',
     userInfo: {},
     hasUserInfo: false,
-    showDetail:false,
-    currentValue: 0,
-    myQuesList: app.globalData.num,
-    myQues: null,//我的答案
-    current: 0,//当前题目编号
-    timeHandle: null,//定时器
-    action: 'normal',
-    choosed:false,
+    list: app.globalData.list,
+    currentIndex: 0,//当前题目编号
+    limit:config.limit,
+    parse: false,
+    currentResult:false,
+    selectedIndex:null,
   },
 
 
@@ -49,20 +44,6 @@ Page({
         }
       })
     }
-
-    if (e.action && e.action == 'fast') {
-      let self = this;
-      this.setData({
-        action: 'fast',
-        timeHandle: setInterval(function () {
-          if (self.data.current < (config.count -1)) {
-            self.bindNext();
-          } else {
-            self.bindShowGrade();
-          }
-        }, 2000)
-      })
-    }
   },
 
   getUserInfo: function (e) {
@@ -73,79 +54,91 @@ Page({
       hasUserInfo: true
     })
   },
-
-
-  radioChange: function (e) {
-    console.log('radio发生change事件，携带value值为：', e.detail.value)
+  //存入我的答案
+  tap: function (e) {
     this.setData({
-      choosed:true,
+      currentResult: false,
     })
-    if (e.detail.value != 1){
+    var indexz = e.currentTarget.dataset.indexz
+    this.setData({
+      selectedIndex:indexz,
+    })
+    for (let i = 0; i < app.globalData.list[this.data.currentIndex].items.length;i++){
+      if (i==indexz){
+        app.globalData.list[this.data.currentIndex].items[i].checked = true
+      }else{
+        app.globalData.list[this.data.currentIndex].items[i].checked = false
+      }
+    }
+    if (app.globalData.list[this.data.currentIndex].items[indexz].value==1){
       this.setData({
-        showDetail:true,
-      })
-    }else{
-      this.setData({
-        showDetail: false,
+        currentResult: true,
       })
     }
+    // console.log("答案:", this.data.currentResult, this.data.list[this.data.currentIndex])    
+  },
+  parsex: function (e) {
+    var v = false
+    if (this.data.parse) {
+      v = false
+    } else {
+      v = true
+    }
+    this.setData({
+      parse: v,
+    })
+  },
+  radioChange: function (e) {
+    console.log('radio发生change事件，携带value值为：', e.detail.value,app.globalData.list[this.data.currentIndex])
   },
   // 下一题
   bindNext: function () {
-    //按钮音效
-    util.nextAudio.play();
     this.setData({
-      showDetail:false,
-      choosed:false,
+      parse: false,
+      currentResult: false,
+      selectedIndex: null,
     })
-    this.setData({
-      //移动下标
-      current: this.data.current + 1,
-    })
-    console.log("当前编号:",this.data.current)
-    if (this.data.current >= (config.count-1)){
-      this.data.current = 0
-      this.getOpts()
+    if (this.data.currentIndex == (config.limit - 1)) {
+      var limit = this.data.limit
+      var offset = wx.getStorageSync('offset')
+      if (offset < 1) {
+        offset = 0
+      }
+      console.log("next limit:", limit, "offset:", offset)
+      wx.request({
+        url: config.apiPrefix + '/api/sms/temp?offset=' + offset + '&limit=' + limit + '&au=XNlcm5hbW',
+        success: (res) => {
+          if (res.data.length>0) {
+            app.globalData.list.length = 0
+            for (let i = 0; i < res.data.length; i++) {
+              app.globalData.list.push(res.data[i])
+            }
+            if (res.statusCode == 200) {
+              wx.setStorageSync('offset', offset + limit)
+              this.data.currentIndex = 0
+              this.setData({
+                list:app.globalData.list,
+              })
+            }
+          }else{
+            wx.setStorageSync('offset', 0)  //全部做完了，清0
+          }
+        }
+      }) 
+      return
+    }
+    if (this.data.currentIndex < (config.limit - 1)) {
+      this.setData({
+        //移动下标
+        currentIndex: this.data.currentIndex + 1,
+      })
     }
   },
   reStart: function () {
     //清空本次成绩
     wx.removeStorageSync('score');
-    //清空本次题目序列
-    app.globalData.num.length = 0;
     wx.redirectTo({
       url: '../begin/begin',
     })
   },
-  getOpts: function () {
-    if (config.debug){
-      var len = wordList.word.length
-      for (let i = 0; i < config.count; i++) {
-        app.globalData.num.push(wordList.word[Math.floor(Math.random() * len)])
-      }
-      return 
-    }
-
-    wx.request({
-      url: config.apiPrefix + '/api/sms?count=' + config.count + '&au=XNlcm5hbW',
-      success: (res) => {
-        if (res.data) {
-          for (let i = 0; i < res.data.length; i++) {
-            app.globalData.num.push(res.data[i])
-          }
-        }
-      }
-    })
-
-  },
-  //比较方式
-  compare: function (x, y) {
-    if (x < y) {
-      return 1;
-    } else if (x > y) {
-      return -1;
-    } else {
-      return 0;
-    }
-  }
 })

@@ -6,6 +6,7 @@
     "pages/index/index",
     "pages/info/info",
     "pages/detail/detail",
+    "pages/practice/practice",
     "pages/logs/logs"
   ],
   "window": {

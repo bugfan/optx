@@ -34,12 +34,12 @@
     </view>
   </view>
 </view>
-  <view><button class='btn-parse' bindtap='parsex' >解析</button></view>  
+  <!-- <view><button class='btn-parse' bindtap='parsex' >解析</button></view>  
   <view class='btn-ppp'>
       <block wx:if='{{parse}}'>
-        <text>dddasdfasdfasdfasdf asfaewfasdfasdfasefawefasef阿瑟发发到付阿道夫</text>
+        <text>{{list[currentIndex].detail}}</text>
       </block>
-  </view>
+  </view> -->
 
 <!-- 按钮整体 -->
 <view class='btn-group'>

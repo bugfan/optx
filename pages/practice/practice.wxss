@@ -1,1 +1,121 @@
-/* pages/practice/practice.wxss */
+/**index.wxss**/
+
+radio {
+  transform: scale(1)
+}
+
+.title{
+  margin-top: 20rpx;
+  text-align: center;
+  font-size: 32rpx;
+}
+
+.question{
+  margin: 20rpx 50rpx;
+  font-size: 35rpx;
+  text-align: center;
+}
+.quex {
+  font-size: 34rpx;
+  margin-left: 10rpx;
+}
+.qbody {
+  margin-left: 10rpx;
+}
+.ques-img{
+  width:400rpx;
+  height:400rpx;
+  margin:0rpx auto;
+}
+
+.select{
+  margin: 30rpx 70rpx;
+  
+}
+.clear-pull{
+  clear: float;
+  margin-left: 1rpx;
+}
+.pull-left{
+  float: left;
+  margin-left: 0rpx;
+  width: 200rpx;
+}
+.pull-right {
+  width: 50rpx;
+  float:  right;
+}
+.item{
+  width:85%;
+ 
+}
+.row{
+    margin-top: 30rpx;
+}
+
+
+
+.userinfo {
+    display: flex;
+}
+.userinfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.userinfo-avatar {
+  display: flex;
+  /* flex-direction: column; */
+  
+  width: 128rpx;
+  height: 128rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+}
+
+.userinfo-nickname {
+  color: #aaa;
+  text-align: center;
+}
+
+.usermotto {
+  margin-top: 200rpx;
+}
+
+.btn-group{
+  display: inline-flex;
+ position: fixed;
+ bottom: 0;
+ width: 100%;
+}
+.btn-itemp {
+  font-size: 30rpx;
+  width: 377rpx;
+}
+
+.btn-parse {
+  width: 150rpx;
+  font-size: 25rpx;
+  float:right;
+  margin-top:80rpx;
+  margin-right:10rpx;
+}
+
+.btn-ppp {
+  margin-top: 150rpx;
+  width:80%;
+  margin-left: 10%;
+}
+
+.res-r {
+  margin-left: 20%;
+  margin-top:5%;
+  color: rgb(8, 221, 43)
+}
+
+.res-f {
+  margin-left: 20%;
+  margin-top:5%;
+  color: rgb(245, 10, 10)
+}

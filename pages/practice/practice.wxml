@@ -1,30 +1,49 @@
 <!--index.wxml-->
 <view class='container'>
-<view class="game-body">
-  <view class='question'>{{myQuesList[current].question}}</view>
-  <radio-group class="select" bindchange="radioChange">
-    <view class="clear-pull " wx:for="{{myQuesList[current].items}}">
-      <view class="pull-left item row">{{item.name}}</view>
-      <radio class="pull-left row radio" value="{{item.value}}" data-name="{{item.name}}" checked="{{item.checked}}" bindtap='tap'/>
-       
+
+  <view>
+    <wxs module="filter" src="../../utils/abcd.wxs"></wxs>
+    <view>
+        <!-- <view class='title'>第{{currentIndex+1}}题</view> -->
+        <view class='question'>{{list[currentIndex].question}}</view>
+        <block wx:if="{{list[currentIndex].pic!=''}}">
+          <image class='ques-img' src='{{list[currentIndex].pic}}'></image>
+        </block>
+      
+        <view class="quex">
+            <radio-group class="select" bindchange="radioChange">
+              <view class="clear-pull " wx:key="index" wx:for="{{list[currentIndex].items}}">
+                <view class="pull-left item row">{{filter.abcd(index)}} {{item.name}}</view>
+                <radio class="pull-right row radio" value="{{item.value}}" data-indexz="{{index}}" data-name="{{item.name}}"
+                checked="{{item.checked}}" bindtap='tap'/>
+              </view>
+            </radio-group>
+        </view>
     </view>
-  </radio-group>
-</view>
-
-
-<view class='game-btn'>
-
-  
-</view>
-  <view class='btn-body'>
-      <button class='btn-item' bindtap='bindNext' >下一题</button>
   </view>
-   <view class='btn-body'>
-      <button class='btn-item' bindtap='reStart' >返回</button>
+</view>
+  <view>
+            <!-- <text>{{currentResult}} {{selectedIndex}} {{list[currentIndex].items[selectedIndex]}}</text> -->
+      <block wx:if='{{list[currentIndex].items[selectedIndex]}}'>
+          <block wx:if='{{currentResult}}'>
+            <view class='res-r'><text>正确</text></view>
+          </block>
+          <block wx:else>
+            <view class='res-f'><text>错误</text></view>
+          </block>
+      </block>
+  </view>  
+  <view><button class='btn-parse' bindtap='parsex' >解析</button></view>  
+  <view class='btn-ppp'>
+      <block wx:if='{{parse}}'>
+        <text>{{list[currentIndex].detail}}</text>
+        <!-- <text>asdfasdfawefawefadfasdfasdfag4g阿三附近啊；伺机待发阿三的发动机大军阀打发；得分阿道夫</text> -->
+      </block>
   </view>
- <text>\n</text>
-    <view wx:if="{{showDetail}}" class="font-color:red;">错误</view>  
-    <view wx:if="{{!showDetail && choosed}}">正确</view>     
- <text>\n</text>     
-    <view wx:if="{{showDetail}}" class='detail'>{{myQuesList[current].detail}}</view>  
+
+<!-- 按钮整体 -->
+<view class='btn-group'>
+  <!-- <view class='btn-body'><button class='btn-itemp' bindtap='bindPre' >上一题</button></view> -->
+  <view class='btn-body'><button class='btn-itemp' bindtap='bindNext' >下一题</button></view>
+  <view class='btn-body'><button class='btn-itemp' bindtap='reStart' >返回</button></view>
 </view>
