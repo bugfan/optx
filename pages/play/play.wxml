@@ -26,7 +26,7 @@
             <radio-group class="select" bindchange="radioChange">
               <view class="clear-pull " wx:key="index" wx:for="{{list[currentIndex].items}}">
                 <view class="pull-left item row">{{filter.abcd(index)}} {{item.name}}</view>
-                <radio class="pull-right row radio" value="{{item.value}}" data-index="{{index}}" data-name="{{item.name}}"
+                <radio class="pull-right row radio" value="{{item.value}}" data-indexz="{{index}}" data-name="{{item.name}}"
                 checked="{{item.checked}}" bindtap='tap'/>
               </view>
             </radio-group>

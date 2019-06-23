@@ -8,7 +8,6 @@ Page({
     userInfo: {},
     hasUserInfo: false,
     list: app.globalData.list,
-    myQues:null,//我的答案
     currentIndex: 0,//当前题目编号
     parse:false,
     nextText:'下一题'
@@ -55,9 +54,12 @@ Page({
   },
   //存入我的答案
   tap:function(e){
+    // console.log("e:",e)
+    app.globalData.list[this.data.currentIndex].items[e.currentTarget.dataset.indexz].checked = true
     this.setData({
-      myQues:e.target.dataset.name
+      list:app.globalData.list,
     })
+    this.bindNext()
   },
   parsex:function(e){
    var v =false
@@ -71,17 +73,15 @@ Page({
     })
   },
   radioChange: function(e) {
-    console.log('radio发生change事件，携带value值为：', e.detail,
-     this.data.currentIndex, app.globalData.list[this.data.currentIndex])
-    // var items = app.globalData.list;
-    for (var i = 0;i<app.globalData.list[this.data.currentIndex].items.length;i++) {
-      if (app.globalData.list[this.data.currentIndex].items[i].value == e.detail.value.toString() && e.detail.value==1){
-        app.globalData.list[this.data.currentIndex].items[i].checked = true
-      }else{
-        app.globalData.list[this.data.currentIndex].items[i].checked == false //判断
-      }
-    }
-    this.bindNext()
+    console.log('radio发生change事件，携带value值为：', e.detail.value)
+    // // var items = app.globalData.list;
+    // for (var i = 0;i<app.globalData.list[this.data.currentIndex].items.length;i++) {
+    //   if (app.globalData.list[this.data.currentIndex].items[i].value == e.detail.value.toString() && e.detail.value==1){
+    //     app.globalData.list[this.data.currentIndex].items[i].checked = true
+    //   }else{
+    //     app.globalData.list[this.data.currentIndex].items[i].checked == false //判断
+    //   }
+    // }
   },
 // 下一题
   bindNext:function(){
@@ -114,12 +114,12 @@ Page({
   },
   bindPre: function (){
     if (this.data.currentIndex >0) {
-      // let ind = this.data.currentIndex - 1
-      // for (var i =0 ;i< app.globalData.list[ind].items.length;i++){
-      //     if (app.globalData.list[ind].items[i].checked){
+      let ind = this.data.currentIndex - 1
+      for (var i =0 ;i< app.globalData.list[ind].items.length;i++){
+          if (app.globalData.list[ind].items[i].checked){
             
-      //     }
-      // }
+          }
+      }
       this.setData({
         list:app.globalData.list,
         currentIndex: this.data.currentIndex - 1,
@@ -128,7 +128,6 @@ Page({
     }
   },
   reStart: function () {
-    app.globalData.list= []
     //清空本次成绩
     wx.removeStorageSync('score');
     wx.redirectTo({

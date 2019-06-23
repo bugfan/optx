@@ -38,6 +38,7 @@ Page({
       url: config.apiPrefix + '/api/sms?count=' + config.count+'&au=XNlcm5hbW',
       success: (res) => {
         if (res.data){
+          app.globalData.list.length=0
           for (let i = 0; i < res.data.length; i++) {
             app.globalData.list.push(res.data[i])
           }
