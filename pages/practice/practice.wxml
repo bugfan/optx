@@ -43,7 +43,7 @@
 
 <!-- 按钮整体 -->
 <view class='btn-group'>
-  <!-- <view class='btn-body'><button class='btn-itemp' bindtap='bindPre' >上一题</button></view> -->
+  <view class='btn-body'><button class='btn-itemp' bindtap='bindPre' >上一题</button></view>
   <view class='btn-body'><button class='btn-itemp' bindtap='bindNext' >下一题</button></view>
   <view class='btn-body'><button class='btn-itemp' bindtap='reStart' >返回</button></view>
 </view>

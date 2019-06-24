@@ -128,10 +128,18 @@ Page({
     }
   },
   reStart: function () {
-    //清空本次成绩
-    wx.removeStorageSync('score');
-    wx.redirectTo({
-      url: '../begin/begin',
+    wx.showModal({
+      title: '返回主界面',
+      content: '是否返回到主界面?',
+      success: function (res) {
+        if (res.confirm) {
+          //清空本次成绩
+          wx.removeStorageSync('score');
+          wx.redirectTo({
+            url: '../begin/begin',
+          })
+        }
+      }
     })
   },
   //显示成绩

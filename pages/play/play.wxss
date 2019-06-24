@@ -90,7 +90,7 @@ radio {
  width: 100%;
 }
 .btn-itemp {
-  width: 250rpx;
+  width: 250.5rpx;
   font-size: 30rpx;
   float: left;
   margin-left: 1rpx;

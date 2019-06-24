@@ -100,10 +100,9 @@ Page({
     })
     if (this.data.currentIndex == (config.limit - 1)) {
       var limit = this.data.limit
+      wx.setStorageSync('offset', wx.getStorageSync('offset') + limit)
       var offset = wx.getStorageSync('offset')
-      if (offset < 1) {
-        offset = 0
-      }
+
       console.log("next limit:", limit, "offset:", offset)
       wx.request({
         url: config.apiPrefix + '/api/sms/temp?offset=' + offset + '&limit=' + limit + '&au=XNlcm5hbW',
@@ -114,7 +113,6 @@ Page({
               app.globalData.list.push(res.data[i])
             }
             if (res.statusCode == 200) {
-              wx.setStorageSync('offset', offset + limit)
               this.data.currentIndex = 0
               this.setData({
                 list:app.globalData.list,
@@ -134,11 +132,56 @@ Page({
       })
     }
   },
+  bindPre: function () {
+    this.setData({
+      parse: false,
+      currentResult: false,
+      selectedIndex: null,
+    })
+    var limit = this.data.limit
+    var offset = wx.getStorageSync('offset')
+    if (offset > 0){
+      offset-=1
+    }
+    wx.request({
+      url: config.apiPrefix + '/api/sms/temp?offset=' + offset + '&limit=' + limit + '&au=XNlcm5hbW',
+      success: (res) => {
+        if (res.data.length > 0) {
+          app.globalData.list.length = 0
+          for (let i = 0; i < res.data.length; i++) {
+            app.globalData.list.push(res.data[i])
+          }
+          if (res.statusCode == 200) {
+            wx.setStorageSync('offset', offset)
+            this.data.currentIndex = 0
+            this.setData({
+              list: app.globalData.list,
+            })
+          }
+        }
+      }
+    })
+  },
   reStart: function () {
-    //清空本次成绩
-    wx.removeStorageSync('score');
-    wx.redirectTo({
-      url: '../begin/begin',
+    wx.showModal({
+      title: '返回主界面',
+      content: '是否返回到主界面?',
+      success:function(res){
+        if (res.confirm){
+          var offset = wx.getStorageSync('offset')
+          if (offset < 1) {
+            offset = 0
+          } else {
+            offset -= 1
+          }
+          wx.setStorageSync('offset', offset)
+          //清空本次成绩
+          wx.removeStorageSync('score');
+          wx.redirectTo({
+            url: '../begin/begin',
+          })
+        }
+      }
     })
   },
 })

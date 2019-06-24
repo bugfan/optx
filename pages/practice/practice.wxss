@@ -91,7 +91,7 @@ radio {
 }
 .btn-itemp {
   font-size: 30rpx;
-  width: 377rpx;
+  width: 250.5rpx;
 }
 
 .btn-parse {
