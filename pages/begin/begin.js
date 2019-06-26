@@ -64,13 +64,21 @@ Page({
       success: (res) => {
         if (res.data){
           app.globalData.list.length=0
-          for (let i = 0; i < res.data.length; i++) {
+          for (var i = 0; i < res.data.length; i++) {
+            // console.log(i,res.data[i])
             app.globalData.list.push(res.data[i])
           }
           wx.redirectTo({
             url: '../play/play',
           })
         }
+      },
+      fail:(res) => {
+        wx.showToast({
+          title: '请求数据失败',
+          icon: 'none',
+          duration:2000
+        })
       }
     })
   },

@@ -2,18 +2,6 @@
 <view class='container'>
 
   <view>
-    <!-- <view class='game'>
-    <block wx:if="{{list[currentIndex].pic==''}}">
-      <view class='userInfo'>
-        <block wx:if='{{!hasUserInfo}}'>
-        </block>
-        <block wx:else>
-          <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-          <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-        </block>
-      </view>
-    </block>
-    </view> -->
     <wxs module="filter" src="../../utils/abcd.wxs"></wxs>
     <view>
         <view class='title'>第{{currentIndex+1}}题</view>
@@ -34,12 +22,6 @@
     </view>
   </view>
 </view>
-  <!-- <view><button class='btn-parse' bindtap='parsex' >解析</button></view>  
-  <view class='btn-ppp'>
-      <block wx:if='{{parse}}'>
-        <text>{{list[currentIndex].detail}}</text>
-      </block>
-  </view> -->
 
 <!-- 按钮整体 -->
 <view class='btn-group'>
