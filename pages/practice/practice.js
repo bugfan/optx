@@ -2,6 +2,7 @@
 //获取应用实例
 const app = getApp()
 const config = require('../../utils/config.js')  //
+const wordList = require('../../utils/word.js')  //题库
 
 Page({
   data: {
@@ -93,6 +94,18 @@ Page({
   },
   // 下一题
   bindNext: function () {
+    if (config.debug) {
+      var len = wordList.word.length
+      app.globalData.list.length = 0
+      let item = wordList.word[Math.floor(Math.random() * len)]
+      app.globalData.list.push(item)
+      this.data.currentIndex = 0
+      this.setData({
+        list: app.globalData.list,
+      })
+      return
+    }
+
     this.setData({
       parse: false,
       currentResult: false,

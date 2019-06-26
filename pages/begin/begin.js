@@ -7,9 +7,11 @@ Page({
   practiceStart: function () {
     if (config.debug) {
       var len = wordList.word.length
-      for (let i = 0; i < config.count; i++) {
-        app.globalData.list.push(wordList.word[Math.floor(Math.random() * len)])
-      }
+      app.globalData.list.length = 0
+      app.globalData.list.push(wordList.word[Math.floor(Math.random() * len)])
+      wx.redirectTo({   //页面
+        url: '../practice/practice',
+      })
       return
     }
     // wx.setStorageSync('offset',400)
@@ -22,7 +24,7 @@ Page({
     wx.request({
       url: config.apiPrefix + '/api/sms/temp?offset='+offset+'&limit='+limit+'&au=XNlcm5hbW',
       success: (res) => {
-        if (res.data) {
+        if (res.data.length>0) {
           app.globalData.list.length = 0
           for (let i = 0; i < res.data.length; i++) {
             app.globalData.list.push(res.data[i])
@@ -54,9 +56,13 @@ Page({
   getOpts: function () {
     if (config.debug) {
       var len = wordList.word.length
+      app.globalData.list.length = 0
       for (let i = 0; i < config.count; i++) {
         app.globalData.list.push(wordList.word[Math.floor(Math.random() * len)])
       }
+      wx.redirectTo({
+        url: '../play/play',
+      })
       return
     }
     wx.request({
