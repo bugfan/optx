@@ -16,6 +16,9 @@ Page({
 
 
   onLoad: function (e) {
+    this.setData({
+      list: app.globalData.list,
+    })
   },
   //存入我的答案
   tap:function(e){
